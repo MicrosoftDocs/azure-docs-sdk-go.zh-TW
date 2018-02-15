@@ -1,0 +1,13 @@
+log/
+obj/
+_site/
+.optemp/
+_themes*/
+_repo.*/
+
+.openpublishing.buildcore.ps1
+
+# Temp files
+.vscode
+.swp
+
