@@ -8,11 +8,11 @@ ms.date: 01/30/2018
 ms.topic: article
 ms.devlang: go
 manager: routlaw
-ms.openlocfilehash: f822a9304a4744e0b0e93286303aa8bb80fec852
-ms.sourcegitcommit: aaa8c37880332625f858a38f5918e6cf581bf48d
+ms.openlocfilehash: 7fc0a3ff71b0b06f616ae43cff311352fe873345
+ms.sourcegitcommit: 890f5f01a70e7e376e6bb98a2030afbfc016f538
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 02/15/2018
+ms.lasthandoff: 03/01/2018
 ---
 # <a name="installing-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
@@ -30,7 +30,7 @@ go get -u -d github.com/Azure/azure-storage-blob-go/...
 
 ## <a name="vendoring-the-azure-sdk-for-go"></a>進行 Azure SDK for Go 的 Vendoring 處理
 
-Azure SDK for Go 可以透過 [dep](https://github.com/golang/dep) 進行Vendoring 處理。 基於穩定性考量，建議進行 Vendoring 處理。 若要使用 `dep` 支援，請將 `gitub.com/Azure/azure-sdk-for-go` 新增至 `Gopkg.toml` 的 `[[constraint]]` 區段。 例如，若要在版本 `14.0.0` 上進行 Vendoring 處理，請新增下列項目：
+Azure SDK for Go 可以透過 [dep](https://github.com/golang/dep) 進行Vendoring 處理。 基於穩定性考量，建議進行 Vendoring 處理。 若要使用 `dep` 支援，請將 `github.com/Azure/azure-sdk-for-go` 新增至 `Gopkg.toml` 的 `[[constraint]]` 區段。 例如，若要在版本 `14.0.0` 上進行 Vendoring 處理，請新增下列項目：
 
 ```
 [[constraint]]
