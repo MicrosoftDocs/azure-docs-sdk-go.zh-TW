@@ -1,0 +1,26 @@
+---
+title: 用來進行驗證和 AAD 的 Azure SDK for Go 範例
+description: 精選數個範例，供您與 Azure SDK for Go 中的 Azure Active Directory (AAD) 和驗證搭配使用。
+author: sptramer
+ms.author: sttramer
+ms.date: 03/21/2018
+ms.topic: article
+ms.devlang: go
+manager: carmonm
+ms.openlocfilehash: e68813ff00f43969fbd0a0336e0506de0bd5b9be
+ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.translationtype: HT
+ms.contentlocale: zh-TW
+ms.lasthandoff: 03/23/2018
+---
+# <a name="azure-sdk-for-go-samples-for-authentication-and-aad"></a>用來進行驗證和 AAD 的 Azure SDK for Go 範例
+
+下表連結移至 Go 原始程式碼的數個精選範例，您可以用來驗證 Azure SDK for Go 並與 Azure Activce Directory (AAD) 服務搭配使用。 
+
+所有適用於 Azure SDK for Go 的範例都位於 [GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples)。
+
+| Name | 說明 |
+|------|-------------|
+| [iam/oauth](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/iam/oauth.go) | 如何使用 Azure 進行驗證以使用服務。 |
+| [authorization/auth](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/authorization/auth.go) | 新增、移除和檢查 AAD 角色。 |
+| [graphrbac/graph](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/graphrbac/graph.go) | 檢查並建立服務主體和 AAD 應用程式。 將祕密加入至現有的服務主體或應用程式。 |
