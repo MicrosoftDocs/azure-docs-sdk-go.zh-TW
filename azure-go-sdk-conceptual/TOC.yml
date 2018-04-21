@@ -7,6 +7,8 @@ items:
         href: azure-sdk-go-install.md
       - name: 工具
         href: azure-sdk-go-tools.md
+      - name: 驗證
+        href: azure-sdk-go-authorization.md
   - name: Go SDK 快速入門
     items:
       - name: 虛擬機器和資源範本
