@@ -3,17 +3,17 @@ title: 安裝 Azure SDK for Go
 description: 如何安裝、Vendoring 處理及設定 Azure SDK for Go。
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/2018
+ms.date: 03/14/2018
 ms.topic: article
 ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 580daf4f2e91eabf97e3acd21bda183c559b57da
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
+ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 04/16/2018
 ---
-# <a name="installing-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
+# <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
 歡迎使用 Azure SDK for Go！ 此 SDK 可讓您從 Go 應用程式管理 Azure 服務並且進行互動。
 
@@ -27,7 +27,7 @@ ms.lasthandoff: 03/23/2018
 go get -u -d github.com/Azure/azure-storage-blob-go/...
 ```
 
-## <a name="vendoring-the-azure-sdk-for-go"></a>進行 Azure SDK for Go 的 Vendoring 處理
+## <a name="vendor-the-azure-sdk-for-go"></a>販售 Azure SDK for Go
 
 Azure SDK for Go 可以透過 [dep](https://github.com/golang/dep) 進行Vendoring 處理。 基於穩定性考量，建議進行 Vendoring 處理。 若要使用 `dep` 支援，請將 `github.com/Azure/azure-sdk-for-go` 新增至 `Gopkg.toml` 的 `[[constraint]]` 區段。 例如，若要在版本 `14.0.0` 上進行 Vendoring 處理，請新增下列項目：
 
@@ -37,7 +37,7 @@ name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
 ```
 
-## <a name="including-the-azure-sdk-for-go-in-your-project"></a>在您的專案中包含 Azure SDK for Go
+## <a name="include-the-azure-sdk-for-go-in-your-project"></a>在您的專案中包含 Azure SDK for Go
 
 若要從 Go 程式碼使用 Azure 服務，請匯入任何與您互動的服務和所需的 `autorest` 模組。
 您可從 GoDoc 取得[可用服務](https://godoc.org/github.com/Azure/azure-sdk-for-go)和 [AutoRest 套件](https://godoc.org/github.com/Azure/go-autorest)的完整可用模組清單。 您需要從 `go-autorest` 取得的最常見套件如下：

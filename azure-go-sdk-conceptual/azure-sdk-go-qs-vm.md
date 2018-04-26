@@ -3,15 +3,15 @@ title: 從 Go 部署 Azure 虛擬機器
 description: 使用 Azure SDK for Go 部署 Azure 虛擬機器。
 author: sptramer
 ms.author: sttramer
-ms.date: 02/08/2018
+ms.date: 04/03/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 46a1243ff2ff6bfcf3831e2cea3137c1f6051c78
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.openlocfilehash: 565580e9e6c6ced543bd00bbaa01383834d9a41c
+ms.sourcegitcommit: 2b2884ea7673c95ba45b3d6eec647200e75bfc5b
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 04/19/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>快速入門：使用 Azure SDK for Go 從範本部署 Azure 虛擬機器
 
@@ -23,7 +23,7 @@ ms.lasthandoff: 03/23/2018
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-如果您採用本機安裝 Azure CLI，本快速入門會要求您執行 CLI 2.0.24 版或更新版本。 執行 `az --version` 以確定您的 CLI 安裝符合此需求。 如果您需要安裝或升級，請參閱[安裝 Azure CLI 2.0](/cli/azure/install-azure-cli)。
+如果您採用本機安裝 Azure CLI，本快速入門會要求您執行 CLI __2.0.28__ 版或更新版本。 執行 `az --version` 以確定您的 CLI 安裝符合此需求。 如果您需要安裝或升級，請參閱[安裝 Azure CLI 2.0](/cli/azure/install-azure-cli)。
 
 ## <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go 
 
@@ -31,69 +31,35 @@ ms.lasthandoff: 03/23/2018
 
 ## <a name="create-a-service-principal"></a>建立服務主體
 
+
 若要使用應用程式以非互動方式登入，您需要服務主體。 服務主體是角色型存取控制 (RBAC) 的一部分，可建立唯一的使用者身分識別。 若要使用 CLI 建立新的服務主體，請執行下列命令：
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart
+az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
 ```
 
-__務必__在輸出中記錄 `appId``password` 和 `tenant` 值。 應用程式會使用這些值來向 Azure 進行驗證。
-
-如需使用 Azure CLI 2.0 建立和管理服務主體的詳細資訊，請參閱[使用 Azure CLI 2.0 建立 Azure 服務主體](/cli/azure/create-an-azure-service-principal-azure-cli)。
+將環境變數 `AZURE_AUTH_LOCATION` 設定為此檔案的完整路徑。 然後 SDK 會從這個檔案中找出並直接讀取認證，您不必進行任何變更或記錄來自服務主體的資訊。
 
 ## <a name="get-the-code"></a>取得程式碼
 
 使用 `go get` 來取得快速入門程式碼及其所有相依性。
 
 ```bash
-go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm/...
+go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/deploy-vm/...
 ```
 
-此程式碼會編譯，但是要等到您提供您的 Azure 帳戶和所建立服務主體的相關資訊，才會正確執行。 `main.go` 中有 `config` 變數，其中包含 `authInfo` 結構。 此結構的欄位值必須加以取代，才能正確地驗證。
-
-```go
-    config = authInfo{ // Your application credentials
-        TenantID:               "", // Azure account tenantID
-        SubscriptionID:         "", // Azure subscription subscriptionID
-        ServicePrincipalID:     "", // Service principal appId
-        ServicePrincipalSecret: "", // Service principal password/secret
-    }
-```
-
-* `SubscriptionID`：您的訂用帳戶識別碼，您可以使用下列 CLI 命令取得
-
-  ```azurecli-interactive
-  az account show --query id -o tsv
-  ```
-
-* `TenantID`：您的租用戶識別碼，建立服務主體時所記錄的 `tenant` 值
-* `ServicePrincipalID`：建立服務主體時所記錄的 `appId` 值
-* `ServicePrincipalSecret`：建立服務主體時所記錄的 `password` 值
-
-您也必須編輯 `vm-quickstart-params.json` 檔案中的值。
-
-```json
-    "vm_password": {
-        "value": "_"
-    }
-```
-
-* `vm_password`：VM 使用者帳戶的密碼。 它的長度必須為 12-72 個字元，而且包含下列 3 個字元：
-  * 小寫字母
-  * 大寫字母
-  * 數字
-  * 符號
+若正確設定了 `AZURE_AUTH_LOCATION` 變數，您就不需要進行任何原始程式碼變更。 程式在執行時，會從該檔案載入所有必要的驗證資訊。
 
 ## <a name="running-the-code"></a>執行程式碼
 
 使用 `go run` 命令執行本快速入門。
 
 ```bash
-cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy-vm
+cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/deploy-vm
 go run main.go
 ```
 
-如果部署失敗，您會收到一則訊息，指出發生問題，但沒有任何特定詳細資料。 透過 Azure CLI，使用下列命令取得部署失敗的詳細資訊：
+如果部署失敗，您會收到一則訊息，指出發生問題，但其中可能不會包括足夠的詳細資料。 請透過 Azure CLI，使用下列命令取得部署失敗的完整詳細資訊：
 
 ```azurecli-interactive
 az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
@@ -113,20 +79,9 @@ az group delete -n GoVMQuickstart
 
 快速入門程式碼的功用可細分為一組變數和數個小型函式，我們會在此進行討論。
 
-### <a name="variable-assignments-and-structs"></a>指派變數與結構
+### <a name="variables-constants-and-types"></a>變數、常數和類型
 
-由於快速入門具有獨立性，所以使用全域變數，而不使用命令列選項或環境變數。
-
-```go
-type authInfo struct {
-        TenantID               string
-        SubscriptionID         string
-        ServicePrincipalID     string
-        ServicePrincipalSecret string
-}
-```
-
-系統會宣告 `authInfo` 結構，以封裝使用 Azure 服務進行授權所需的全部資訊。
+因為快速入門是獨立的，所以會使用全域常數和變數。
 
 ```go
 const (
@@ -138,54 +93,51 @@ const (
     parametersFile = "vm-quickstart-params.json"
 )
 
+// Information loaded from the authorization file to identify the client
+type clientInfo struct {
+    SubscriptionID string
+    VMPassword     string
+}
+
 var (
-    config = authInfo{ // Your application credentials
-        TenantID:               "", // Azure account tenantID
-        SubscriptionID:         "", // Azure subscription subscriptionID
-        ServicePrincipalID:     "", // Service principal appId
-        ServicePrincipalSecret: "", // Service principal password/secret
-    }
-
-    ctx = context.Background()
-
-    token *adal.ServicePrincipalToken
+    ctx        = context.Background()
+    clientData clientInfo
+    authorizer autorest.Authorizer
 )
 ```
 
 系統會宣告值，以提供所建立資源的名稱。 在此也會指定位置，您可以變更位置，以查看部署在其他資料中心的行為。 並非每個資料中心都具備所有必要的資源。
 
-`templateFile` 和 `parametersFile` 常數會指向部署所需的檔案。 服務主體權杖會在稍後說明，而 `ctx` 變數是網路作業的 [Go 內容](https://blog.golang.org/context)。
+系統會宣告 `clientInfo` 類型，來封裝必須單獨從驗證檔案載入的所有資訊，以便在 SDK 中設定用戶端及設定虛擬機器密碼。
 
-### <a name="init-and-authorization"></a>init() 和授權
+`templateFile` 和 `parametersFile` 常數會指向部署所需的檔案。 Go SDK 會設定 `authorizer` 以進行驗證，而 `ctx` 變數是網路作業用的 [Go 內容](https://blog.golang.org/context)。
 
-程式碼的 `init()` 方法會設定授權。 由於授權是快速入門中所有一切的先決條件，所以讓它成為初始化的一部分很合理。 
+### <a name="authentication-and-initialization"></a>驗證與初始化
+
+`init` 函式會設定驗證。 由於驗證是快速入門中所有一切的先決條件，所以讓它成為初始化的一部分很合理。 該函式也會從驗證檔案載入一些資訊，以便設定用戶端和虛擬機器。
 
 ```go
-// Authenticate with the Azure services over OAuth, using a service principal.
 func init() {
-    oauthConfig, err := adal.NewOAuthConfig(azure.PublicCloud.ActiveDirectoryEndpoint, config.TenantID)
+    var err error
+    authorizer, err = auth.NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
     if err != nil {
-        log.Fatalf("Failed to get OAuth config: %v\n", err)
+        log.Fatalf("Failed to get OAuth config: %v", err)
     }
-    token, err = adal.NewServicePrincipalToken(
-        *oauthConfig,
-        config.ServicePrincipalID,
-        config.ServicePrincipalSecret,
-        azure.PublicCloud.ResourceManagerEndpoint)
-    if err != nil {
-        log.Fatalf("faled to get token: %v\n", err)
-    }
+
+    authInfo, err := readJSON(os.Getenv("AZURE_AUTH_LOCATION"))
+    clientData.SubscriptionID = (*authInfo)["subscriptionId"].(string)
+    clientData.VMPassword = (*authInfo)["clientSecret"].(string)
 }
 ```
 
-此程式碼可完成兩個授權步驟：
+首先，系統會呼叫 [auth.NewAuthorizerFromFile](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewAuthorizerFromFile)，從從位 `AZURE_AUTH_LOCATION` 的檔案載入驗證資訊。 接下來，`readJSON` 函式會手動載入此檔案 (在此省略過程) 以提取執行程式其餘部分所需的兩個值：用戶端的訂用帳戶 ID，以及服務主體的祕密 (這也用作虛擬機器密碼)。
 
-* 藉由與 Azure Active Directory 連接來擷取 `TenantID` 的 OAuth 組態資訊。 [`azure.PublicCloud`](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#PublicCloud) 物件包含標準 Azure 組態中使用的端點。
-* 呼叫 [`adal.NewServicePrincipalToken()`](https://godoc.org/github.com/Azure/go-autorest/autorest/adal#NewServicePrincipalToken) 函式。 此函式會採用 OAuth 資訊與服務主體登入，以及正在使用的 Azure 管理樣式。 除非您有特定需求並知道您的所作所為，否則此值應該一律為 `.ResourceManagerEndpoint`。
+> [!WARNING]
+> 為了簡化快速入門的步驟，我們會重複使用服務主體密碼。 在生產環境中，__切勿__重複使用能存取您 Azure 資源的密碼。
 
 ### <a name="flow-of-operations-in-main"></a>main() 中的作業流程
 
-`main()` 函式很簡單，只會指出作業流程並執行錯誤檢查。
+`main` 函式很簡單，只會指出作業流程並執行錯誤檢查。
 
 ```go
 func main() {
@@ -193,32 +145,36 @@ func main() {
     if err != nil {
         log.Fatalf("failed to create group: %v", err)
     }
-    log.Printf("created group: %v\n", *group.Name)
+    log.Printf("Created group: %v", *group.Name)
 
-    log.Println("starting deployment")
+    log.Printf("Starting deployment: %s", deploymentName)
     result, err := createDeployment()
     if err != nil {
-        log.Fatalf("Failed to deploy correctly: %v", err)
+        log.Fatalf("Failed to deploy: %v", err)
     }
-    log.Printf("Completed deployment: %v", *result.Name)
+    if result.Name != nil {
+        log.Printf("Completed deployment %v: %v", deploymentName, *result.Properties.ProvisioningState)
+    } else {
+        log.Printf("Completed deployment %v (no data returned to SDK)", deploymentName)
+    }
     getLogin()
 }
 ```
 
 程式碼依序執行的步驟如下：
 
-* 建立要部署至的資源群組 (`createGroup()`)
-* 在此群組內建立部署 (`createDeployment()`)
-* 取得並顯示所部署 VM 的登入資訊 (`getLogin()`)
+* 建立要部署至的資源群組 (`createGroup`)
+* 在此群組內建立部署 (`createDeployment`)
+* 取得並顯示所部署 VM 的登入資訊 (`getLogin`)
 
 ### <a name="creating-the-resource-group"></a>建立資源群組
 
-`createGroup()` 函式會建立資源群組。 查看呼叫流程和引數，以示範服務互動在 SDK 中的建構方式。
+`createGroup` 函式會建立資源群組。 查看呼叫流程和引數，以示範服務互動在 SDK 中的建構方式。
 
 ```go
 func createGroup() (group resources.Group, err error) {
-        groupsClient := resources.NewGroupsClient(config.SubscriptionID)
-        groupsClient.Authorizer = autorest.NewBearerAuthorizer(token)
+    groupsClient := resources.NewGroupsClient(clientData.SubscriptionID)
+    groupsClient.Authorizer = authorizer
 
         return groupsClient.CreateOrUpdate(
                 ctx,
@@ -230,18 +186,17 @@ func createGroup() (group resources.Group, err error) {
 
 與 Azure 服務互動的一般流程如下：
 
-* 使用 `service.NewXClient()` 方法建立用戶端，其中 `X` 是您要進行互動之 `service` 的資源類型。 此函式一律採用訂用帳戶識別碼。
+* 使用 `service.New*Client()` 方法建立用戶端，其中 `*` 是您要進行互動之 `service` 的資源類型。 此函式一律採用訂用帳戶識別碼。
 * 設定用戶端的授權方法，允許它與遠端 API 互動。
 * 請在遠端 API 的對應用戶端上呼叫此方法。 服務用戶端方法通常會採用資源的名稱和中繼資料物件。
 
-[`to.StringPtr()`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) 函式在此用於執行類型轉換。 SDK 方法的 parameters 結構幾乎會以獨佔方式採用指標，所以提供這些方法可讓您輕鬆地轉換類型。 如需便利轉換器的完整清單和行為，請參閱 [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) 模組的文件。
+[`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/autorest/to#StringPtr) 函式在此用於執行類型轉換。 SDK 方法的變數結構幾乎全都會採用指標，所以我們提供便利的方法，讓您可輕鬆地轉換類型。 如需便利轉換器及其行為的完整清單，請參閱 [autorest/to](https://godoc.org/github.com/Azure/go-autorest/autorest/to) 模組的文件。
 
-`groupsClient.CreateOrUpdate()` 作業會傳回資料結構的指標，代表資源群組。 這種直接傳回值表示要同步的長時間執行作業。 在下一節中，您會看到長時間執行的作業範例，以及其互動方式。
+`groupsClient.CreateOrUpdate` 方法會傳回資料類型的指標，代表資源群組。 這種直接傳回值表示要同步的長時間執行作業。 在下一節中，您會看到長時間執行的作業範例，以及與其互動的方式。
 
 ### <a name="performing-the-deployment"></a>執行部署
 
-一旦建立要容納資源的群組，即可開始執行部署。 此程式碼會分解成較小的區段，以強調其邏輯的不同部分。
-
+一旦建立資源群組，即可開始執行部署。 此程式碼會分解成較小的區段，以強調其邏輯的不同部分。
 
 ```go
 func createDeployment() (deployment resources.DeploymentExtended, err error) {
@@ -253,51 +208,59 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     if err != nil {
         return
     }
-
+    (*params)["vm_password"] = map[string]string{
+        "value": clientData.VMPassword,
+    }
         // ...
 ```
 
-部署檔案是由 `readJSON` 載入，這裡略過其詳細資料。 此函式會傳回 `*map[string]interface{}`，這是用於為資源部署呼叫建構中繼資料的類型。
+部署檔案是由 `readJSON` 載入，這裡略過其詳細資料。 此函式會傳回 `*map[string]interface{}`，這是用於為資源部署呼叫建構中繼資料的類型。 虛擬機器密碼也要在部署參數上手動設定。
 
 ```go
         // ...
-        
-        deploymentsClient := resources.NewDeploymentsClient(config.SubscriptionID)
-        deploymentsClient.Authorizer = autorest.NewBearerAuthorizer(token)
 
-        deploymentFuture, err := deploymentsClient.CreateOrUpdate(
-                ctx,
-                resourceGroupName,
-                deploymentName,
-                resources.Deployment{
-                        Properties: &resources.DeploymentProperties{
-                                Template:   template,
-                                Parameters: params,
-                                Mode:       resources.Incremental,
-                        },
-                },
-        )
-        if err != nil {
-                log.Fatalf("Failed to create deployment: %v", err)
-        }
-        //...
+    deploymentsClient := resources.NewDeploymentsClient(clientData.SubscriptionID)
+    deploymentsClient.Authorizer = authorizer
+
+    deploymentFuture, err := deploymentsClient.CreateOrUpdate(
+        ctx,
+        resourceGroupName,
+        deploymentName,
+        resources.Deployment{
+            Properties: &resources.DeploymentProperties{
+                Template:   template,
+                Parameters: params,
+                Mode:       resources.Incremental,
+            },
+        },
+    )
+    if err != nil {
+        return
+    }
 ```
 
-此程式碼會遵循建立資源群組時的相同模式。 建立新用戶端、獲得向 Azure 驗證的能力，接著呼叫方法。 此方法的名稱 (`CreateOrUpdate`) 甚至與資源群組的對應方法名稱相同。 此模式會一再出現於 SDK 中。 執行類似工作的方法通常具有相同的名稱。
+此程式碼會遵循建立資源群組時的相同模式。 建立新用戶端、獲得向 Azure 驗證的能力，接著呼叫方法。 此方法的名稱 (`CreateOrUpdate`) 甚至與資源群組的對應方法名稱相同。 在整個 SDK 中都可看到此模式。 執行類似工作的方法通常具有相同的名稱。
 
-最大差異在於 `deploymentsClient.CreateOrUpdate()` 方法的傳回值。 這個值是 `Future` 物件，它會遵循 [Future 設計模式](https://en.wikipedia.org/wiki/Futures_and_promises)。 Future 代表 Azure 中長時間執行的作業，您可以在執行其他工作時偶爾輪詢該作業。
+最大差異在於 `deploymentsClient.CreateOrUpdate` 方法的傳回值。 這個值屬於 [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future) 類型，會遵循 [Future 設計模式](https://en.wikipedia.org/wiki/Futures_and_promises)。 Future 代表 Azure 中長時間執行的作業，在其完成時可加以輪詢、取消或封鎖。
 
 ```go
         //...
-        err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
-        if err != nil {
-                log.Fatalf("Error while waiting for deployment creation: %v", err)
-        }
-        return deploymentFuture.Result(deploymentsClient)
-}
+    err = deploymentFuture.Future.WaitForCompletion(ctx, deploymentsClient.BaseClient.Client)
+    if err != nil {
+        return
+    }
+    deployment, err = deploymentFuture.Result(deploymentsClient)
+
+    // Work around possible bugs or late-stage failures
+    if deployment.Name == nil || err != nil {
+        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
+    }
+    return
 ```
 
-在此案例中，最佳做法是等候作業完成。 等候 Future 同時需要[內容物件](https://blog.golang.org/context)和建立 Future 物件的用戶端。 有以下兩個可能的錯誤來源：嘗試叫用方法時在用戶端上造成的錯誤，以及來自伺服器的錯誤回應。 後者會在 `deploymentFuture.Result()` 呼叫中傳回。
+在此案例中，最佳做法是等候作業完成。 要等候 Future 同時需要[內容物件](https://blog.golang.org/context)和建立 `Future` 的用戶端。 有以下兩個可能的錯誤來源：嘗試叫用方法時在用戶端上造成的錯誤，以及來自伺服器的錯誤回應。 後者會在 `deploymentFuture.Result` 呼叫中傳回。
+
+擷取部署資訊之後，對於部署資訊可能空白的 Bug，因應措施是手動呼叫 `deploymentsClient.Get` 以確保可填入資料。
 
 ### <a name="obtaining-the-assigned-ip-address"></a>取得指派的 IP 位址
 
@@ -305,35 +268,36 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
 
 ```go
 func getLogin() {
-        params, err := readJSON(parametersFile)
-        if err != nil {
-                log.Fatalf("Unable to read parameters. Get login information with `az network public-ip list -g %s", resourceGroupName)
-        }
+    params, err := readJSON(parametersFile)
+    if err != nil {
+        log.Fatalf("Unable to read parameters. Get login information with `az network public-ip list -g %s", resourceGroupName)
+    }
 
-        addressClient := network.NewPublicIPAddressesClient(config.SubscriptionID)
-        addressClient.Authorizer = autorest.NewBearerAuthorizer(token)
-        ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
-        ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
-        if err != nil {
-                log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
-        }
+    addressClient := network.NewPublicIPAddressesClient(clientData.SubscriptionID)
+    addressClient.Authorizer = authorizer
+    ipName := (*params)["publicIPAddresses_QuickstartVM_ip_name"].(map[string]interface{})
+    ipAddress, err := addressClient.Get(ctx, resourceGroupName, ipName["value"].(string), "")
+    if err != nil {
+        log.Fatalf("Unable to get IP information. Try using `az network public-ip list -g %s", resourceGroupName)
+    }
 
-        vmUser := (*params)["vm_user"].(map[string]interface{})
-        vmPass := (*params)["vm_password"].(map[string]interface{})
+    vmUser := (*params)["vm_user"].(map[string]interface{})
 
-        log.Printf("Log in with ssh: %s@%s, password: %s",
-                vmUser["value"].(string),
-                *ipAddress.PublicIPAddressPropertiesFormat.IPAddress,
-                vmPass["value"].(string))
+    log.Printf("Log in with ssh: %s@%s, password: %s",
+        vmUser["value"].(string),
+        *ipAddress.PublicIPAddressPropertiesFormat.IPAddress,
+        clientData.VMPassword)
 }
 ```
 
 此方法需依賴儲存在 parameters 檔案中的資訊。 程式碼可以直接查詢 VM 來取得其 NIC，查詢 NIC 來取得其 IP 資源，然後再直接查詢 IP 資源。 這是一長串要解析的相依性和作業，很耗費資源。 因為 JSON 資訊位於本機，所以可改為載入該資訊。
 
-VM 使用者和密碼的值同樣會從 JSON 進行載入。
+虛擬機器使用者的值也會從 JSON 載入。 虛擬機器密碼之前已從驗證檔案載入。
 
 ## <a name="next-steps"></a>後續步驟
 
 在本快速入門中，您採用了現有範本並透過 Go 進行部署。 然後透過 SSH 連線到新建立的 VM，以確保它正在執行中。
 
 若要繼續了解如何透過 Go 在 Azure 環境中使用虛擬機器，請參閱[適用於 Go 的 Azure 計算範例](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)或[適用於 Go 的 Azure 資源管理範例](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources)。
+
+若要深入了解 SDK 中可用的驗證方法，及其所支援的驗證類型，請參閱[使用 Azure SDK for Go 進行驗證](azure-sdk-go-authorization.md)。
