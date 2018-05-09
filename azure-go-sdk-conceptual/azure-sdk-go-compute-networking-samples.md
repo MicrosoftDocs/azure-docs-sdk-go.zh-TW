@@ -3,15 +3,18 @@ title: Azure SDK for Go 的計算和網路範例
 description: 精選數個範例，供您與 Azure SDK for Go 中的 VM 和虛擬機器等計算資源搭配使用。
 author: sptramer
 ms.author: sttramer
-ms.date: 03/21/2018
-ms.topic: article
-ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 1e6f9d848213f0f70ab59d5e0bcc5c52127e97c5
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.date: 03/21/2018
+ms.topic: sample
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.service: virtual-machines
+ms.devlang: go
+ms.openlocfilehash: 4837572a50ae934e71bfe49d916c01e131bb6d83
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="azure-sdk-for-go-samples-for-compute-and-networking"></a>Azure SDK for Go 的計算和網路範例
 

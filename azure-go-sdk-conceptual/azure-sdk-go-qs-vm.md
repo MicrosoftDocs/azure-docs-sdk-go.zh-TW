@@ -3,15 +3,18 @@ title: 從 Go 部署 Azure 虛擬機器
 description: 使用 Azure SDK for Go 部署 Azure 虛擬機器。
 author: sptramer
 ms.author: sttramer
+manager: carmonm
 ms.date: 04/03/2018
 ms.topic: quickstart
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.service: virtual-machines
 ms.devlang: go
-manager: carmonm
-ms.openlocfilehash: 565580e9e6c6ced543bd00bbaa01383834d9a41c
-ms.sourcegitcommit: 2b2884ea7673c95ba45b3d6eec647200e75bfc5b
+ms.openlocfilehash: 1fbcc54df2a2aebce56c5a5800361f3d3aed1ccc
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 04/19/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>快速入門：使用 Azure SDK for Go 從範本部署 Azure 虛擬機器
 

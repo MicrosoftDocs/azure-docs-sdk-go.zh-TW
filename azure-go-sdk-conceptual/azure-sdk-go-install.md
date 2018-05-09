@@ -3,15 +3,17 @@ title: 安裝 Azure SDK for Go
 description: 如何安裝、Vendoring 處理及設定 Azure SDK for Go。
 author: sptramer
 ms.author: sttramer
-ms.date: 03/14/2018
-ms.topic: article
-ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
-ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
+ms.date: 03/14/2018
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.openlocfilehash: ad77bdff881770512a828b19dc7af4821f4a55ad
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
@@ -62,7 +64,7 @@ import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compu
 
 除非您有理由採用別種做法，否則建議您使用最新版的服務。
 
-如果您需要服務的集體快照集，您也可以選取單一設定檔版本。 現在，只有鎖定的設定檔為版本 `2017-03-30`，其可能沒有服務的最新功能。 設定檔位於 `profiles` 模組之下，其版本為 `YYYY-MM-DD` 格式。 服務會分組歸類在其設定檔版本之下。 例如，若要從 `2017-03-09` 設定檔匯入 Azure 資源管理模組：
+如果您需要服務的集體快照集，您也可以選取單一設定檔版本。 現在，只有鎖定的設定檔為版本 `2017-03-09`，其可能沒有服務的最新功能。 設定檔位於 `profiles` 模組之下，其版本為 `YYYY-MM-DD` 格式。 服務會分組歸類在其設定檔版本之下。 例如，若要從 `2017-03-09` 設定檔匯入 Azure 資源管理模組：
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/resources"
