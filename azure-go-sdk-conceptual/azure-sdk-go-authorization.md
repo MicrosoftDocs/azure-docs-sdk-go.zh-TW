@@ -4,16 +4,19 @@ description: 了解 Azure SDK for Go 中可用的驗證方法及其使用方式�
 services: azure
 author: sptramer
 ms.author: sttramer
-ms.date: 04/03/2018
-ms.topic: article
-ms.service: azure
-ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 39f9dc5a7cdf9ab84cfd9264446bacb31392ca80
-ms.sourcegitcommit: 59d2b4c9d8da15fbbd15e36551093219fdaf256e
+ms.date: 04/03/2018
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.service: active-directory
+ms.component: authentication
+ms.openlocfilehash: 370f5607b89c0044022f7987d06c3a55c9d6f352
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 04/18/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 
@@ -84,6 +87,27 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := auth.NewAuthorizerFromEnvironment()
 ```
+
+### <a name="authentication-on-azure-stack"></a>在 Azure Stack 上進行驗證
+
+若要在 Azure Stack 上進行驗證，您需要設定以下變數：
+
+| 環境變數 | 說明  |
+|----------------------|--------------|
+| `AZURE_AD_ENDPOINT` | Azure Active Directory 端點。 |
+| `AZURE_AD_RESOURCE` | Active Directory 資源識別碼。 |
+
+可以從 Azure Stack 中繼資料資訊中擷取這些變數。 若要擷取中繼資料，請在 Azure Stack 環境中開啟網路瀏覽器，並使用下列 URL：`(ResourceManagerURL)/metadata/endpoints?api-version=1.0`
+
+`ResourceManagerURL` 會依 Azure Stack 部署的區域名稱、機器名稱和外部完整網域名稱 (FQDN) 而有所不同：
+
+| 環境 | ResourceManagerURL |
+|----------------------|--------------|
+| 開發套件 | `https://management.local.azurestack.external/` |
+| 整合系統 | `https://management.(region).ext-(machine-name).(FQDN)` |
+
+如需如何在 Azure Stack 上使用 Azure SDK for Go 的詳細資訊，請參閱[在 Azure Stack 中搭配使用 Go 與 API 版本設定檔](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go)
+
 
 ## <a name="use-file-based-authentication"></a>使用檔案式驗證
 
