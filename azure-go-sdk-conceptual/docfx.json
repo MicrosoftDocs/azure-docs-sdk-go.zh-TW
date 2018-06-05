@@ -37,7 +37,10 @@
     "globalMetadata": {
       "breadcrumb_path": "/go/azure/breadcrumb/toc.json",
       "bilingual_type": "hover over",
-      "extendBreadcrumb": true
+      "extendBreadcrumb": true,
+      "feedback_system": "GitHub",
+      "feedback_github_repo": "MicrosoftDocs/azure-docs-sdk-go.zh-tw",
+      "feedback_product_url": "https://github.com/Azure/azure-sdk-for-go/issues/new"
     },
     "fileMetadata": {},
     "template": [],
