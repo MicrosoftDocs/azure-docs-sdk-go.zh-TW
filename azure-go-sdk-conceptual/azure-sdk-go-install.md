@@ -9,11 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: ad77bdff881770512a828b19dc7af4821f4a55ad
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 8423b3fedd89e57662bf96f777a5b30926914da9
+ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 05/03/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34755510"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
@@ -23,11 +24,14 @@ ms.lasthandoff: 05/03/2018
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
-使用 Azure 儲存體 Blob 時需要個別的 SDK。
+某些 Azure 服務本身具備 Go SDK，且並未包含在核心 Azure SDK for Go 套件中。 下表列出各項服務和服務本身的 SDK，以及套件名稱。 這些套件均為預覽狀態。
 
-```bash
-go get -u -d github.com/Azure/azure-storage-blob-go/...
-```
+| 服務 | Package |
+|---------|---------|
+| Blob 儲存體 | [github.com/Azure/azure-storage-blob-go](https://github.com/Azure/azure-storage-blob-go) |
+| 檔案儲存體 | [github.com/Azure/azure-storage-file-go](https://github.com/Azure/azure-storage-file-go) |
+| 事件中樞 | [github.com/Azure/azure-event-hubs-go](https://github.com/Azure/azure-event-hubs-go) |
+| Application Insights | [github.com/Microsoft/ApplicationInsights-go](https://github.com/Microsoft/ApplicationInsights-go) |
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>販售 Azure SDK for Go
 
