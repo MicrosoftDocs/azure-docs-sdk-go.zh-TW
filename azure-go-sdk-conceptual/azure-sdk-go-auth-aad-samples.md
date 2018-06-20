@@ -15,6 +15,7 @@ ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
 ms.lasthandoff: 05/03/2018
+ms.locfileid: "32319844"
 ---
 # <a name="azure-sdk-for-go-samples-for-authentication-and-aad"></a><span data-ttu-id="acebb-103">用來進行驗證和 AAD 的 Azure SDK for Go 範例</span><span class="sxs-lookup"><span data-stu-id="acebb-103">Azure SDK for Go samples for authentication and AAD</span></span>
 
