@@ -15,6 +15,7 @@ ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
 ms.lasthandoff: 05/03/2018
+ms.locfileid: "32319861"
 ---
 # <a name="azure-sdk-for-go-samples-for-containers"></a>適用於容器的 Azure SDK for Go 範例
 

@@ -17,6 +17,7 @@ ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: zh-TW
 ms.lasthandoff: 05/03/2018
+ms.locfileid: "32319878"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 

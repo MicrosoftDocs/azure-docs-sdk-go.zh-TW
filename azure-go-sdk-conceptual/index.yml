@@ -1,10 +1,10 @@
 ### YamlMime:YamlDocument
 documentType: LandingData
-title: "Azure for Go 開發人員"
+title: Azure for Go 開發人員
 metadata:
-  title: "Azure for Go 開發人員 - 教學課程、API 參考"
-  description: "利用下列開發人員資源，開始使用 Azure SDK for Go 進行開發。"
-  keywords: "Azure、Go、golang、SDK、API"
+  title: Azure for Go 開發人員 - 教學課程、API 參考
+  description: 利用下列開發人員資源，開始使用 Azure SDK for Go 進行開發。
+  keywords: Azure、Go、golang、SDK、API
   author: sptramer
   ms.author: sttramer
   manager: routlaw
@@ -21,64 +21,66 @@ metadata:
   ms.translationtype: HT
   ms.contentlocale: zh-TW
   ms.lasthandoff: 03/01/2018
+  ms.locfileid: "29716005"
 sections:
 - items:
   - type: markdown
-    text: "利用正式的教學課程和工具，開始使用 [Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) 開發應用程式。\n"
+    text: >
+      利用正式的教學課程和工具，開始使用 [Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) 開發應用程式。
 - items:
   - type: list
     style: cards
     className: cardsM
     columns: 2
     items:
-    - title: "開始使用"
-      html: "<p>安裝 Azure SDK for Go</p>"
+    - title: 開始使用
+      html: <p>安裝 Azure SDK for Go</p>
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-install
       image:
         src: https://docs.microsoft.com/media/common/i_get-started.svg
-    - title: "程式碼範例"
-      html: "<p>使用 Go 的 Azure 程式碼範例</p>"
+    - title: 程式碼範例
+      html: <p>使用 Go 的 Azure 程式碼範例</p>
       image:
         src: https://docs.microsoft.com//media/common/i_code-samples.svg
       href: https://github.com/azure-samples/azure-sdk-for-go-samples
-    - title: "SDK &amp; 工具"
-      html: "<p>開發人員工具</p>"
+    - title: SDK &amp; 工具
+      html: <p>開發人員工具</p>
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-tools
       image:
         src: https://docs.microsoft.com/media/common/i_download-install.svg
-    - title: "API 參考"
-      html: "<p>適用於 Azure SDK for Go 的 GoDoc</p>"
+    - title: API 參考
+      html: <p>適用於 Azure SDK for Go 的 GoDoc</p>
       href: https://godoc.org/github.com/Azure/azure-sdk-for-go
       image:
         src: https://docs.microsoft.com/media/common/i_api-reference.svg
-- title: "Go SDK 快速入門"
+- title: Go SDK 快速入門
   items:
   - type: paragraph
-    text: "如何使用 Azure SDK for Go。"
+    text: 如何使用 Azure SDK for Go。
   - type: list
     style: cards
     className: cardsM
     columns: 2
     items:
-    - title: "使用 Go 從 Azure 資源範本部署虛擬機器"
+    - title: 使用 Go 從 Azure 資源範本部署虛擬機器
       href: https://docs.microsoft.com/go/azure/azure-sdk-go-qs-vm
       image:
         src: https://docs.microsoft.com/azure/virtual-machines/media/index/virtualmachine.svg
-    - title: "使用 Azure Storage SDK for Go 將物件傳送至 Azure Blob 儲存體"
+    - title: 使用 Azure Storage SDK for Go 將物件傳送至 Azure Blob 儲存體
       href: https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-go?toc=%2fgo%2fazure%2ftoc.json
       image:
         src: https://docs.microsoft.com/azure/media/index/logo_azure-blob-storage.svg
-    - title: "使用 Go 連線至適用於 PostgreSQL 的 Azure 資料庫"
+    - title: 使用 Go 連線至適用於 PostgreSQL 的 Azure 資料庫
       href: https://docs.microsoft.com/azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       image:
         src: https://docs.microsoft.com//azure/media/index/PostgreSQL.svg
-  - title: "範例"
+  - title: 範例
     items:
     - type: list
       style: unordered
       items:
-      - html: "<a href=\"https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam\">使用 Azure 服務進行驗證</a>"
-      - html: "<a href=\"https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute\">建立新的虛擬機器</a>"
-      - html: "<a href=\"https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance\">將容器部署至 Azure 容器執行個體</a>"
-      - html: "<a href=\"https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice\">在 Azure Kubernetes 服務中建立叢集</a>"
-      - html: "<a href=\"https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/storage\">使用 Azure 儲存體服務</a>"
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam">使用 Azure 服務進行驗證</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute">建立新的虛擬機器</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance">將容器部署至 Azure 容器執行個體</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice">在 Azure Kubernetes 服務中建立叢集</a>
+      - html: <a href="https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/storage">使用 Azure 儲存體服務</a>
