@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 1e122ab161766023ea146329a5edb13143699b8b
-ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
+ms.openlocfilehash: 25b46e3a1636c39e261ba11c6f8939d8721cc693
+ms.sourcegitcommit: 79d216c6b0442d0f3b3660ff2a34dc8b2049390c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34755527"
+ms.lasthandoff: 06/29/2018
+ms.locfileid: "37093153"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>使用 Azure SDK for Go 的開發人員所適用的工具
 
@@ -40,4 +40,4 @@ Visual Studio Code 是一個輕量級編輯器，可透過擴充功能完整支�
 因為還沒有正式的解決方案，所以有許多方法可使用 Go 來管理套件相依性並進行 Vendoring 處理。 執行此管理的建議方法是使用 `dep` 相依性管理員。 Azure SDK for Go 會使用 dep 進行其 Vendoring 處理，並保證可使用 dep 正確取得其他任何專案的相依性。
 
 > [!div class="nextstepaction"]
-> [取得 dep 相依性管理員](https://github.com/tools/godep)
+> [取得 dep 相依性管理員](https://github.com/golang/dep)
