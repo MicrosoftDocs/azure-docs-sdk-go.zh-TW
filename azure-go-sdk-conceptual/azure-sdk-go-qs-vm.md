@@ -10,16 +10,16 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 1fbcc54df2a2aebce56c5a5800361f3d3aed1ccc
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319929"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38067011"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>快速入門：使用 Azure SDK for Go 從範本部署 Azure 虛擬機器
 
-本快速入門著重於使用 Azure SDK for Go 從範本部署資源。 範本是 [Azure 資源群組](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview)內含之所有資源的快照集。 在執行有用工作的過程中，您將熟悉 SDK 的功能和慣例。
+本快速入門著重於使用 Azure SDK for Go 從範本部署資源。 範本是 [Azure 資源群組](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview)內含之所有資源的快照集。 在執行有用工作的過程中，您將熟悉 SDK 的功能和慣例。
 
 在本快速入門結束時，您會有使用使用者名稱和密碼登入的執行中 VM。
 
@@ -35,8 +35,7 @@ ms.locfileid: "32319929"
 
 ## <a name="create-a-service-principal"></a>建立服務主體
 
-
-若要使用應用程式以非互動方式登入，您需要服務主體。 服務主體是角色型存取控制 (RBAC) 的一部分，可建立唯一的使用者身分識別。 若要使用 CLI 建立新的服務主體，請執行下列命令：
+若要使用應用程式透過與 Azure 非互動方式登入，您需要服務主體。 服務主體是角色型存取控制 (RBAC) 的一部分，可建立唯一的使用者身分識別。 若要使用 CLI 建立新的服務主體，請執行下列命令：
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth

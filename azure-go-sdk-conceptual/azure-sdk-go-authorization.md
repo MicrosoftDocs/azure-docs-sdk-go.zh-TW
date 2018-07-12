@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 370f5607b89c0044022f7987d06c3a55c9d6f352
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319878"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38066994"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 
@@ -45,7 +45,7 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 [使用 Azure CLI 2.0 建立服務主體]: /cli/azure/create-an-azure-service-principal-azure-cli
 [適用於 Azure 資源的受控服務識別 (MSI)]: /azure/active-directory/managed-service-identity/overview
 
-這些驗證類型可以透過不同的驗證方法加以使用。 [環境式驗證](#use-environment-based-authentication)會直接從程式的環境讀取認證。 [檔案式驗證](#use-file-based-authentication)會載入包含服務主體認證的檔案。 [用戶端式驗證](#use-an-authentication-client)會使用 Go 程式碼中的物件，使得您要負責在程式執行期間提供認證。 最後，[裝置權杖驗證](#use-device-token-authentication)需要使用者透過網頁瀏覽器，用權杖以互動方式登入，而且不能搭配環境式或檔案式驗證。
+這些驗證類型可以透過不同的驗證方法加以使用。 [環境式驗證](#use-environment-based-authentication)會直接從程式的環境讀取認證。 [檔案式驗證](#use-file-based-authentication)會載入包含服務主體認證的檔案。 [用戶端式驗證](#use-an-authentication-client)會使用 Go 程式碼中的物件，使得您要負責在程式執行期間提供認證。 最後，[_裝置權杖驗證_](#use-device-token-authentication)需要使用者透過網頁瀏覽器，用權杖以互動方式登入，而且不能搭配環境式或檔案式驗證。
 
 所有驗證函式和類型在 `github.com/Azure/go-autorest/autorest/azure/auth` 套件中都有提供。
 
@@ -71,8 +71,8 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 | | `AZURE_CERTIFICATE_PASSWORD` | 用戶端憑證的密碼。 |
 | __使用者名稱/密碼__ | `AZURE_TENANT_ID` | 使用者所屬的 Active Directory 租用戶 ID。 |
 | | `AZURE_CLIENT_ID` | 應用程式用戶端識別碼。 |
-| | `AZURE_USERNAME` | 用以登入的使用者名稱。 |
-| | `AZURE_PASSWORD` | 用以登入的密碼。 |
+| | `AZURE_USERNAME` | 用來登入的使用者名稱。 |
+| | `AZURE_PASSWORD` | 用來登入的密碼。 |
 | __MSI__ | | MSI 不需要設定任何認證， 但應用程式必須要在設定為使用 MSI 的 Azure 資源上執行。 欲知詳情，請參閱[適用於 Azure 資源的受控服務識別 (MSI)]。 |
 
 若需要連線到預設 Azure 公用雲端以外的雲端或管理端點，您也可以設定下列環境變數。 最常需要設定這些環境變數的幾個原因是您使用了 Azure Stack、位於不同地理區域的雲端，或 Azure 傳統部署模型。
@@ -107,7 +107,7 @@ authorizer, err := auth.NewAuthorizerFromEnvironment()
 | 開發套件 | `https://management.local.azurestack.external/` |
 | 整合系統 | `https://management.(region).ext-(machine-name).(FQDN)` |
 
-如需如何在 Azure Stack 上使用 Azure SDK for Go 的詳細資訊，請參閱[在 Azure Stack 中搭配使用 Go 與 API 版本設定檔](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go)
+如需如何在 Azure Stack 上使用 Azure SDK for Go 的詳細資訊，請參閱[在 Azure Stack 中搭配使用 Go 與 API 版本設定檔](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go)
 
 
 ## <a name="use-file-based-authentication"></a>使用檔案式驗證
@@ -131,7 +131,7 @@ authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoi
 
 ## <a name="use-device-token-authentication"></a>使用裝置權杖驗證
 
-若您想讓使用者以互動方式登入，提供這項功能最好的方式是透過裝置權杖驗證。 此驗證流程會傳遞使用者權杖，並貼入 Microsoft 登入網站，然後在此使用 Azure Active Directory (AAD) 帳戶登入。 這種驗證方法不同於使用者名稱/密碼驗證，可支援已啟用多重要素驗證的帳戶。
+若您想讓使用者以互動方式登入，提供這項功能最好的方式是透過裝置權杖驗證。 此驗證流程會將權杖傳遞給使用者，讓使用者貼入 Microsoft 登入網站，然後在此使用 Azure Active Directory (AAD) 帳戶進行驗證。 這種驗證方法不同於使用者名稱/密碼驗證，可支援已啟用多重要素驗證的帳戶。
 
 若要使用裝置權杖驗證，請使用 [NewDeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewDeviceFlowConfig) 函式建立 [DeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig) 授權者。 呼叫結果物件上的 [Authorizer](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig.Authorizer) 以開始驗證程序。 裝置流程驗證會封鎖程式執行，直到整個驗證流程完成為止。
 
