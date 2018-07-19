@@ -4,18 +4,18 @@ description: 使用 Azure SDK for Go 部署 Azure 虛擬機器。
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 07/13/2018
 ms.topic: quickstart
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067011"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039551"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>快速入門：使用 Azure SDK for Go 從範本部署 Azure 虛擬機器
 
@@ -27,9 +27,9 @@ ms.locfileid: "38067011"
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-如果您採用本機安裝 Azure CLI，本快速入門會要求您執行 CLI __2.0.28__ 版或更新版本。 執行 `az --version` 以確定您的 CLI 安裝符合此需求。 如果您需要安裝或升級，請參閱[安裝 Azure CLI 2.0](/cli/azure/install-azure-cli)。
+如果您採用本機安裝 Azure CLI，本快速入門會要求您執行 CLI __2.0.28__ 版或更新版本。 執行 `az --version` 以確定您的 CLI 安裝符合此需求。 如果您需要安裝或升級，請參閱[安裝 Azure CLI](/cli/azure/install-azure-cli)。
 
-## <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go 
+## <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
@@ -242,7 +242,9 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     }
 ```
 
-此程式碼會遵循建立資源群組時的相同模式。 建立新用戶端、獲得向 Azure 驗證的能力，接著呼叫方法。 此方法的名稱 (`CreateOrUpdate`) 甚至與資源群組的對應方法名稱相同。 在整個 SDK 中都可看到此模式。 執行類似工作的方法通常具有相同的名稱。
+此程式碼會遵循建立資源群組時的相同模式。 建立新用戶端、獲得向 Azure 驗證的能力，接著呼叫方法。
+此方法的名稱 (`CreateOrUpdate`) 甚至與資源群組的對應方法名稱相同。 在整個 SDK 中都可看到此模式。
+執行類似工作的方法通常具有相同的名稱。
 
 最大差異在於 `deploymentsClient.CreateOrUpdate` 方法的傳回值。 這個值屬於 [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future) 類型，會遵循 [Future 設計模式](https://en.wikipedia.org/wiki/Futures_and_promises)。 Future 代表 Azure 中長時間執行的作業，在其完成時可加以輪詢、取消或封鎖。
 

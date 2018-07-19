@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: f5e76fc745512a3a52172f560c3a24f510e96feb
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38066994"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039534"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 
@@ -30,19 +30,19 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 | 驗證類型 | 建議使用的時機... |
 |---------------------|---------------------|
 | 憑證式驗證 | 您所具有的 X509 憑證，已針對 Azure Active Directory (AAD) 使用者或服務主體進行設定。 若要深入了解，請參閱[開始在 Azure Active Directory 中使用憑證式驗證]。 |
-| 用戶端認證 | 您所具有的服務主體，已針對此應用程式或其所屬應用程式類別進行設定。 若要深入了解，請參閱[使用 Azure CLI 2.0 建立服務主體]。 |
+| 用戶端認證 | 您所具有的服務主體，已針對此應用程式或其所屬應用程式類別進行設定。 若要深入了解，請參閱[使用 Azure CLI 建立服務主體]。 |
 | 受控服務識別 (MSI) | 您的應用程式正在 Azure 資源上執行，該資源已使用受控服務識別 (MSI) 進行設定。 若要深入了解，請參閱[適用於 Azure 資源的受控服務識別 (MSI)]。 |
 | 裝置權杖 | 您的應用程式__只__適用於以互動方式使用，且可能會有來自多個 AAD 租用戶的多位使用者。 使用者可以存取網頁瀏覽器來登入。 若要深入了解，請參閱[使用裝置權杖驗證](#use-device-token-authentication)。|
 | 使用者名稱/密碼 | 您所具有的應用程式無法使用任何其他驗證方法。 您的使用者未啟用 AAD 登入的多重要素驗證。 |
 
 > [!IMPORTANT]
 > 若您使用的是用戶端認證以外的驗證類型，則必須在 Azure Active Directory 中註冊您的應用程式。 若要了解註冊方式，請參閱[整合應用程式與 Azure Active Directory](/azure/active-directory/develop/active-directory-integrating-applications)。
-
+>
 > [!NOTE]
 > 除非您有特殊需求，請避免使用者名稱/密碼驗證。 在使用者式登入適用的情況下，通常可改用裝置權杖驗證。
 
 [開始在 Azure Active Directory 中使用憑證式驗證]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
-[使用 Azure CLI 2.0 建立服務主體]: /cli/azure/create-an-azure-service-principal-azure-cli
+[使用 Azure CLI 建立服務主體]: /cli/azure/create-an-azure-service-principal-azure-cli
 [適用於 Azure 資源的受控服務識別 (MSI)]: /azure/active-directory/managed-service-identity/overview
 
 這些驗證類型可以透過不同的驗證方法加以使用。 [環境式驗證](#use-environment-based-authentication)會直接從程式的環境讀取認證。 [檔案式驗證](#use-file-based-authentication)會載入包含服務主體認證的檔案。 [用戶端式驗證](#use-an-authentication-client)會使用 Go 程式碼中的物件，使得您要負責在程式執行期間提供認證。 最後，[_裝置權杖驗證_](#use-device-token-authentication)需要使用者透過網頁瀏覽器，用權杖以互動方式登入，而且不能搭配環境式或檔案式驗證。
@@ -54,7 +54,7 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 
 ## <a name="use-environment-based-authentication"></a>使用環境式驗證
 
-若您是在嚴格控制的環境下執行您的應用程式 (例如在容器中)，環境式驗證是合理的選擇。 您會先設定 Shell 環境再執行應用程式，且 Go SDK 會在執行階段讀取這些環境變數，向 Azure 進行驗證。 
+若您是在嚴格控制的環境下執行您的應用程式 (例如在容器中)，環境式驗證是合理的選擇。 您會先設定 Shell 環境再執行應用程式，且 Go SDK 會在執行階段讀取這些環境變數，向 Azure 進行驗證。
 
 環境式驗證可支援除了裝置權杖以外的所有驗證方法，並以下列順序依次進行評估：用戶端認證、憑證、使用者名稱/密碼，最後是受控服務識別 (MSI)。 若未設定必要的環境變數或 SDK 遭到驗證服務拒絕，則會嘗試下一種驗證類型。 若 SDK 無法在環境中進行驗證，便會傳回錯誤。
 
@@ -109,10 +109,9 @@ authorizer, err := auth.NewAuthorizerFromEnvironment()
 
 如需如何在 Azure Stack 上使用 Azure SDK for Go 的詳細資訊，請參閱[在 Azure Stack 中搭配使用 Go 與 API 版本設定檔](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go)
 
-
 ## <a name="use-file-based-authentication"></a>使用檔案式驗證
 
-檔案式驗證只適用於由 [Azure CLI 2.0](/cli/azure) 所產生、以本機檔案格式儲存的用戶端認證。 以 `--sdk-auth` 參數建立新的服務主體時，您可以輕鬆地建立此檔案。 若您計劃使用檔案式驗證，請務必在建立服務主體時，提供這個引數。 因為 CLI 會將輸出列印到 `stdout`，請將輸出重新導向到檔案。
+檔案式驗證只適用於由 [Azure CLI](/cli/azure) 所產生、以本機檔案格式儲存的用戶端認證。 以 `--sdk-auth` 參數建立新的服務主體時，您可以輕鬆地建立此檔案。 若您計劃使用檔案式驗證，請務必在建立服務主體時，提供這個引數。 因為 CLI 會將輸出列印到 `stdout`，請將輸出重新導向到檔案。
 
 ```azurecli
 az ad sp create-for-rbac --sdk-auth > azure.auth
@@ -127,7 +126,7 @@ import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
 ```
 
-如需有關使用服務主體，以及管理其存取權限的詳細資訊，請參閱[使用 Azure CLI 2.0 建立服務主體]。
+如需有關使用服務主體，以及管理其存取權限的詳細資訊，請參閱[使用 Azure CLI 建立服務主體]。
 
 ## <a name="use-device-token-authentication"></a>使用裝置權杖驗證
 
