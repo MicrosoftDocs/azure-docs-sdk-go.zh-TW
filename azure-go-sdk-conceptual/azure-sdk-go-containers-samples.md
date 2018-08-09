@@ -10,12 +10,12 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: container-service
 ms.devlang: go
-ms.openlocfilehash: 47d8e8a92c2aaf657156b8c0047adafe87e459ee
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 6fad418ec59bfb44433842de2c32a40d2574640e
+ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319861"
+ms.lasthandoff: 08/02/2018
+ms.locfileid: "39475818"
 ---
 # <a name="azure-sdk-for-go-samples-for-containers"></a>適用於容器的 Azure SDK for Go 範例
 
@@ -25,5 +25,5 @@ ms.locfileid: "32319861"
 
 | Name | 說明 |
 |------|-------------|
-| [containerinstance/containerinstance](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/containerinstance/containerinstance.go) | 使用 Azure Container 執行個體中的容器群組。 建立和修改 ACI 群組中的容器。 |
-| [containerservice/managedcluster](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/containerservice/managedcluster.go) | 建立、刪除和檢查 Azure Kubernetes 服務 (AKS) 用戶端。 |
+| [compute/container_instance](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/container_instance.go) | 使用 Azure Container 執行個體中的容器群組。 建立和修改 ACI 群組中的容器。 |
+| [compute/container_cluster](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/container_cluster.go) | 建立、刪除和檢查 Azure Kubernetes 服務 (AKS) 用戶端。 |
