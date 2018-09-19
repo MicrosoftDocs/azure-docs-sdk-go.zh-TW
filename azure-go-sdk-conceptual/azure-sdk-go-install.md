@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 3388359bba791c87025b6ffd0e6b476f95589f73
-ms.sourcegitcommit: 81e97407e6139375bf7357045e818c87a17dcde1
+ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 06/19/2018
-ms.locfileid: "36262969"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059181"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
@@ -37,9 +37,9 @@ ms.locfileid: "36262969"
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>販售 Azure SDK for Go
 
-Azure SDK for Go 可以透過 [dep](https://github.com/golang/dep) 進行Vendoring 處理。 基於穩定性考量，建議進行 Vendoring 處理。 若要使用 `dep` 支援，請將 `github.com/Azure/azure-sdk-for-go` 新增至 `Gopkg.toml` 的 `[[constraint]]` 區段。 例如，若要在版本 `14.0.0` 上進行 Vendoring 處理，請新增下列項目：
+Azure SDK for Go 可以透過 [dep](https://github.com/golang/dep) 進行Vendoring 處理。 基於穩定性考量，建議進行 Vendoring 處理。 若要在您自己的專案中使用 `dep`，需將 `github.com/Azure/azure-sdk-for-go` 新增至 `Gopkg.toml` 的 `[[constraint]]` 區段。 例如，若要在版本 `14.0.0` 上進行 Vendoring 處理，請新增下列項目：
 
-```
+```toml
 [[constraint]]
 name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
@@ -62,13 +62,14 @@ version = "14.0.0"
 [autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
-Azure 服務的模組與其 SDK API 獨立設定版本。 這些版本屬於模組匯入路徑的一部分，且來自「服務版本」或「設定檔」。 目前建議您使用特定服務版本進行開發和發行。 服務位於 `services` 模組之下。 匯入的完整路徑是服務名稱，後面接著 `YYYY-MM-DD` 格式的版本，其後再接著服務名稱。 例如，若要納入計算服務的 `2017-03-30` 版本：
+Go 套件與 Azure 服務會獨立建立版本。 服務版本是模組匯入路徑的一部份，位於 `services` 模組下方。 模組的完整路徑是服務名稱，後面接著 `YYYY-MM-DD` 格式的版本，其後再接著服務名稱。 例如，若要匯入 Compute 服務的 `2017-03-30` 版本：
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
 ```
 
-除非您有理由採用別種做法，否則建議您使用最新版的服務。
+建議您在開始開發時使用最新版的服務，並始終保持一致。
+即使在 Go SDK 沒有更新版本的期間，服務需求還是可能因為服務版本不同而有所變更，進而破壞您的程式碼。
 
 如果您需要服務的集體快照集，您也可以選取單一設定檔版本。 現在，只有鎖定的設定檔為版本 `2017-03-09`，其可能沒有服務的最新功能。 設定檔位於 `profiles` 模組之下，其版本為 `YYYY-MM-DD` 格式。 服務會分組歸類在其設定檔版本之下。 例如，若要從 `2017-03-09` 設定檔匯入 Azure 資源管理模組：
 

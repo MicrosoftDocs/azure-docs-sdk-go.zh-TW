@@ -4,24 +4,26 @@ description: 使用 Azure SDK for Go 部署 Azure 虛擬機器。
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: quickstart
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: a7970be0857fd414d776241b033af0c23457790c
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039551"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059130"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>快速入門：使用 Azure SDK for Go 從範本部署 Azure 虛擬機器
 
-本快速入門著重於使用 Azure SDK for Go 從範本部署資源。 範本是 [Azure 資源群組](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview)內含之所有資源的快照集。 在執行有用工作的過程中，您將熟悉 SDK 的功能和慣例。
+本快速入門會示範如何使用 Azure SDK for Go 從 Azure Resource Manager 範本部署資源。 範本是 [Azure 資源群組](/azure/azure-resource-manager/resource-group-overview)中所有資源的快照集。 在這過程中，您將熟悉 SDK 的功能和慣例。
 
 在本快速入門結束時，您會有使用使用者名稱和密碼登入的執行中 VM。
+
+> [!NOTE]
+> 若要了解在不使用 Resource Manager 範本的情況下，如何在 Go 中建立 VM，請見此[命令式範例](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go)，其中會示範如何使用 SDK 來建置和設定所有 VM 資源。 使用此範例中的範本可讓您專注在 SDK 慣例上，無須深入探討太多有關 Azure 服務架構的詳細資料。
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
@@ -38,7 +40,7 @@ ms.locfileid: "39039551"
 若要使用應用程式透過與 Azure 非互動方式登入，您需要服務主體。 服務主體是角色型存取控制 (RBAC) 的一部分，可建立唯一的使用者身分識別。 若要使用 CLI 建立新的服務主體，請執行下列命令：
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
+az ad sp create-for-rbac --sdk-auth > quickstart.auth
 ```
 
 將環境變數 `AZURE_AUTH_LOCATION` 設定為此檔案的完整路徑。 然後 SDK 會從這個檔案中找出並直接讀取認證，您不必進行任何變更或記錄來自服務主體的資訊。
@@ -62,13 +64,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/dep
 go run main.go
 ```
 
-如果部署失敗，您會收到一則訊息，指出發生問題，但其中可能不會包括足夠的詳細資料。 請透過 Azure CLI，使用下列命令取得部署失敗的完整詳細資訊：
-
-```azurecli-interactive
-az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
-```
-
-如果部署成功，您會看到一則訊息，提供使用者名稱、IP 位址和密碼，以便登入新建立的虛擬機器。 透過 SSH 連到這部電腦，以確認它已啟動並執行中。
+如果部署成功，您會看到一則訊息，提供使用者名稱、IP 位址和密碼，以便登入新建立的虛擬機器。 透過 SSH 連到此機器，以查看它是否已啟動並執行中。 
 
 ## <a name="cleaning-up"></a>清除
 
@@ -77,6 +73,18 @@ az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
 ```azurecli-interactive
 az group delete -n GoVMQuickstart
 ```
+
+也請刪除已建立的服務主體。 `quickstart.auth` 檔案中有 `clientId` 的 JSON 索引鍵。 將此值複製到 `CLIENT_ID_VALUE` 環境變數，然後執行下列 Azure CLI 命令：
+
+```azurecli-interactive
+az ad sp delete --id ${CLIENT_ID_VALUE}
+```
+
+其中 `CLIENT_ID_VALUE` 的值來自 `quickstart.auth`。
+
+> [!WARNING]
+> 此應用程式的服務主體若未刪除，則會成為您 Azure Active Directory 租用戶中的作用中服務主體。
+> 當該服務主體的名稱和密碼產生為 UUID 時，請務必刪除任何未使用的服務主體與 Azure Active Directory 應用程式，以遵循正確的安全性作法。
 
 ## <a name="code-in-depth"></a>深入了解程式碼
 
@@ -111,7 +119,7 @@ var (
 
 系統會宣告值，以提供所建立資源的名稱。 在此也會指定位置，您可以變更位置，以查看部署在其他資料中心的行為。 並非每個資料中心都具備所有必要的資源。
 
-系統會宣告 `clientInfo` 類型，來封裝必須單獨從驗證檔案載入的所有資訊，以便在 SDK 中設定用戶端及設定虛擬機器密碼。
+`clientInfo` 類型會保留從驗證檔案載入的所有資訊，以便在 SDK 中設定用戶端及設定虛擬機器密碼。
 
 `templateFile` 和 `parametersFile` 常數會指向部署所需的檔案。 Go SDK 會設定 `authorizer` 以進行驗證，而 `ctx` 變數是網路作業用的 [Go 內容](https://blog.golang.org/context)。
 
@@ -170,7 +178,7 @@ func main() {
 * 在此群組內建立部署 (`createDeployment`)
 * 取得並顯示所部署 VM 的登入資訊 (`getLogin`)
 
-### <a name="creating-the-resource-group"></a>建立資源群組
+### <a name="create-the-resource-group"></a>建立資源群組
 
 `createGroup` 函式會建立資源群組。 查看呼叫流程和引數，以示範服務互動在 SDK 中的建構方式。
 
@@ -197,7 +205,7 @@ func createGroup() (group resources.Group, err error) {
 
 `groupsClient.CreateOrUpdate` 方法會傳回資料類型的指標，代表資源群組。 這種直接傳回值表示要同步的長時間執行作業。 在下一節中，您會看到長時間執行的作業範例，以及與其互動的方式。
 
-### <a name="performing-the-deployment"></a>執行部署
+### <a name="perform-the-deployment"></a>執行部署
 
 一旦建立資源群組，即可開始執行部署。 此程式碼會分解成較小的區段，以強調其邏輯的不同部分。
 
@@ -254,20 +262,13 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     if err != nil {
         return
     }
-    deployment, err = deploymentFuture.Result(deploymentsClient)
-
-    // Work around possible bugs or late-stage failures
-    if deployment.Name == nil || err != nil {
-        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-    }
-    return
+    return deploymentFuture.Result(deploymentsClient)
+}
 ```
 
 在此案例中，最佳做法是等候作業完成。 要等候 Future 同時需要[內容物件](https://blog.golang.org/context)和建立 `Future` 的用戶端。 有以下兩個可能的錯誤來源：嘗試叫用方法時在用戶端上造成的錯誤，以及來自伺服器的錯誤回應。 後者會在 `deploymentFuture.Result` 呼叫中傳回。
 
-擷取部署資訊之後，對於部署資訊可能空白的 Bug，因應措施是手動呼叫 `deploymentsClient.Get` 以確保可填入資料。
-
-### <a name="obtaining-the-assigned-ip-address"></a>取得指派的 IP 位址
+### <a name="get-the-assigned-ip-address"></a>取得指派的 IP 位址
 
 若要使用新建立的 VM 執行任何作業，您需要指派的 IP 位址。 IP 位址是自有的獨立 Azure 資源，可繫結至網路介面控制器 (NIC) 資源。
 
@@ -301,7 +302,7 @@ func getLogin() {
 
 ## <a name="next-steps"></a>後續步驟
 
-在本快速入門中，您採用了現有範本並透過 Go 進行部署。 然後透過 SSH 連線到新建立的 VM，以確保它正在執行中。
+在本快速入門中，您採用了現有範本並透過 Go 進行部署。 然後透過 SSH 連線到新建立的 VM。
 
 若要繼續了解如何透過 Go 在 Azure 環境中使用虛擬機器，請參閱[適用於 Go 的 Azure 計算範例](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)或[適用於 Go 的 Azure 資源管理範例](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources)。
 
