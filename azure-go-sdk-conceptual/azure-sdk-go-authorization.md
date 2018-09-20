@@ -11,12 +11,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 28fd4a4c0832ab19dcf52dc549d0ddc0d1eec6f1
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 8f94b9ba715c32263d324306cce69bd484c05702
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059096"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711969"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 
@@ -30,7 +30,7 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 |---------------------|---------------------|
 | 憑證式驗證 | 您所具有的 X509 憑證，已針對 Azure Active Directory (AAD) 使用者或服務主體進行設定。 若要深入了解，請參閱[開始在 Azure Active Directory 中使用憑證式驗證]。 |
 | 用戶端認證 | 您所具有的服務主體，已針對此應用程式或其所屬應用程式類別進行設定。 若要深入了解，請參閱[使用 Azure CLI 建立服務主體]。 |
-| 受控服務識別 (MSI) | 您的應用程式正在 Azure 資源上執行，該資源已使用受控服務識別 (MSI) 進行設定。 若要深入了解，請參閱[適用於 Azure 資源的受控服務識別 (MSI)]。 |
+| 適用於 Azure 資源的受控識別 | 您的應用程式正在 Azure 資源上執行，該資源已使用受控識別進行設定。 若要深入了解，請參閱[適用於 Azure 資源的受控識別]。 |
 | 裝置權杖 | 您的應用程式__只__適用於以互動方式使用。 使用者可能已啟用多重要素驗證。 使用者可以存取網頁瀏覽器來登入。 若要深入了解，請參閱[使用裝置權杖驗證](#use-device-token-authentication)。|
 | 使用者名稱/密碼 | 您擁有的互動式應用程式無法使用任何其他驗證方法。 您的使用者未啟用 AAD 登入的多重要素驗證。 |
 
@@ -42,7 +42,7 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 
 [開始在 Azure Active Directory 中使用憑證式驗證]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [使用 Azure CLI 建立服務主體]: /cli/azure/create-an-azure-service-principal-azure-cli
-[適用於 Azure 資源的受控服務識別 (MSI)]: /azure/active-directory/managed-service-identity/overview
+[適用於 Azure 資源的受控識別]: /azure/active-directory/managed-identities-azure-resources/overview
 
 這些驗證類型可以透過不同的驗證方法加以使用。
 
@@ -65,7 +65,7 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 * 用戶端認證
 * X509 憑證
 * 使用者名稱/密碼
-* 受控服務識別 (MSI)
+* 適用於 Azure 資源的受控識別
 
 如果驗證類型有未設定的值或遭到拒絕，SDK 會自動嘗試下一個驗證類型。 沒有更多的類型可供試用時，SDK 就會傳回錯誤。
 
@@ -84,7 +84,7 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 | | `AZURE_CLIENT_ID` | 應用程式用戶端識別碼。 |
 | | `AZURE_USERNAME` | 用來登入的使用者名稱。 |
 | | `AZURE_PASSWORD` | 用來登入的密碼。 |
-| __MSI__ | | MSI 驗證不需要任何認證。 但應用程式必須要在設定為使用 MSI 的 Azure 資源上執行。 欲知詳情，請參閱[適用於 Azure 資源的受控服務識別 (MSI)]。 |
+| __受控身分識別__ | | 受控識別驗證不需要任何認證。 但應用程式必須要在設定為使用受控識別的 Azure 資源上執行。 若要了解詳細資料，請參閱[適用於 Azure 資源的受控識別]。 |
 
 若要連線到預設 Azure 公用雲端以外的雲端或管理端點，請設定下列環境變數。 最常見的幾個原因是您使用了 Azure Stack、位於不同地理區域的雲端，或傳統部署模型。
 
@@ -168,7 +168,7 @@ authorizer, err := deviceConfig.Authorizer()
 |---------------------|-----------------------|
 | 憑證式驗證 | [ClientCertificateConfig] |
 | 用戶端認證 | [ClientCredentialsConfig] |
-| 受控服務識別 (MSI) | [MSIConfig] |
+| 適用於 Azure 資源的受控識別 | [MSIConfig] |
 | 使用者名稱/密碼 | [UsernamePasswordConfig] |
 
 [ClientCertificateConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#ClientCertificateConfig

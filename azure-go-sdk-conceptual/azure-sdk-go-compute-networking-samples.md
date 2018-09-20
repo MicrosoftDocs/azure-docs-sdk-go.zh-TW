@@ -9,12 +9,12 @@ ms.topic: sample
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: d570ad8598ae06633d0010245c207641161ee446
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 20c264157905ea870b8c432d64a204974a1bc964
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059079"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711952"
 ---
 # <a name="azure-sdk-for-go-samples-for-compute-and-networking"></a>Azure SDK for Go 的計算和網路範例
 
@@ -28,4 +28,4 @@ ms.locfileid: "44059079"
 | [compute/vm_disk](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_disk.go) | 建立、連結、中斷連結、更新及加密 VM 資料磁碟。 |
 | [compute/vm](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) | 建立、更新、停用及管理 VM。 |
 | [compute/vm_with_availabilityset](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_availabilityset.go) | 建立可用性設定組並上傳適用於 VM 的負載平衡器。 |
-| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | 建立和管理適用於 VM 的受控服務識別 (MSI)。 |
+| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | 建立和修改適用於 Azure 資源的受控識別。 | 
