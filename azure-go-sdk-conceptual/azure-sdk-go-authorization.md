@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
 ms.component: authentication
-ms.openlocfilehash: f5c2c56e43828f0bedad0b5781dc71991ce1fd3e
-ms.sourcegitcommit: 172f81dd6e4c6a275dc8031815aa87cdb488cbf0
+ms.openlocfilehash: c2c3dccfa8da5cfe57fee0b90139002068982560
+ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47231670"
+ms.lasthandoff: 10/21/2018
+ms.locfileid: "49481977"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 
@@ -70,20 +70,21 @@ Azure SDK for Go 提供數種不同類型的驗證，各自使用不同的認證
 
 下表詳細說明針對環境式驗證所支援的每種驗證類型，需要設定的環境變數。
 
-| 驗證類型 | 環境變數 | 說明 |
-| ------------------- | -------------------- | ----------- |
-| __用戶端認證__ | `AZURE_TENANT_ID` | 服務主體所屬的 Active Directory 租用戶 ID。 |
-| | `AZURE_CLIENT_ID` | 服務主體的名稱或 ID。 |
-| | `AZURE_CLIENT_SECRET` | 與服務主體關聯的密碼。 |
-| __憑證__ | `AZURE_TENANT_ID` | 憑證註冊的 Active Directory 租用戶 ID。 |
-| | `AZURE_CLIENT_ID` | 與憑證相關聯的用戶端識別碼。 |
-| | `AZURE_CERTIFICATE_PATH` | 用戶端憑證檔案的路徑。 |
-| | `AZURE_CERTIFICATE_PASSWORD` | 用戶端憑證的密碼。 |
-| __使用者名稱/密碼__ | `AZURE_TENANT_ID` | 使用者所屬的 Active Directory 租用戶 ID。 |
-| | `AZURE_CLIENT_ID` | 應用程式用戶端識別碼。 |
-| | `AZURE_USERNAME` | 用來登入的使用者名稱。 |
-| | `AZURE_PASSWORD` | 用來登入的密碼。 |
-| __受控身分識別__ | | 受控識別驗證不需要任何認證。 但應用程式必須要在設定為使用受控識別的 Azure 資源上執行。 若要了解詳細資料，請參閱[適用於 Azure 資源的受控識別]。 |
+
+|  驗證類型   |     環境變數     |                                                                                                     說明                                                                                                      |
+|------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **用戶端認證** |      `AZURE_TENANT_ID`       |                                                                    服務主體所屬的 Active Directory 租用戶 ID。                                                                     |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                       服務主體的名稱或 ID。                                                                                       |
+|                        |    `AZURE_CLIENT_SECRET`     |                                                                                  與服務主體關聯的密碼。                                                                                   |
+|    **憑證**     |      `AZURE_TENANT_ID`       |                                                                   憑證註冊的 Active Directory 租用戶 ID。                                                                    |
+|                        |      `AZURE_CLIENT_ID`       |                                                                              與憑證相關聯的用戶端識別碼。                                                                              |
+|                        |   `AZURE_CERTIFICATE_PATH`   |                                                                                       用戶端憑證檔案的路徑。                                                                                       |
+|                        | `AZURE_CERTIFICATE_PASSWORD` |                                                                                       用戶端憑證的密碼。                                                                                       |
+| **使用者名稱/密碼**  |      `AZURE_TENANT_ID`       |                                                                           使用者所屬的 Active Directory 租用戶 ID。                                                                           |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                              應用程式用戶端識別碼。                                                                                              |
+|                        |       `AZURE_USERNAME`       |                                                                                            用來登入的使用者名稱。                                                                                             |
+|                        |       `AZURE_PASSWORD`       |                                                                                            用來登入的密碼。                                                                                             |
+|  **受控身分識別**  |                              | 受控識別驗證不需要任何認證。 但應用程式必須要在設定為使用受控識別的 Azure 資源上執行。 若要了解詳細資料，請參閱[適用於 Azure 資源的受控識別]。 |
 
 若要連線到預設 Azure 公用雲端以外的雲端或管理端點，請設定下列環境變數。 最常見的幾個原因是您使用了 Azure Stack、位於不同地理區域的雲端，或傳統部署模型。
 
