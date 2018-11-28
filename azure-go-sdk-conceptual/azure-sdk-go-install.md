@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 7990ec8bde5622078aa822fc7e66ba5c4384d682
+ms.sourcegitcommit: 3d26b464f196f8675c636ae792637d4c882fb92c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059181"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52337138"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>安裝 Azure SDK for Go
 
@@ -90,7 +90,7 @@ import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/res
 
 如果您想要立即在 Go SDK 中開始使用其他服務，請查看部分可用的範例程式碼。
 
-* [使用 Azure 服務進行驗證](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam)
+* [使用 Azure 服務進行驗證](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/internal/iam)
 * [使用 SSH 驗證部署新的虛擬機器](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)
 * [將容器映像部署至 Azure 容器執行個體](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance)
 * [在 Azure Kubernetes 服務中建立叢集](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)

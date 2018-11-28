@@ -7,11 +7,11 @@ ms.topic: include
 ms.prod: azure
 ms.technology: azure-cli
 ms.openlocfilehash: 8773e0bb59d7ad7829616fa304cedc9889fe1c76
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059241"
+ms.lasthandoff: 11/23/2018
+ms.locfileid: "52293489"
 ---
 ## <a name="launch-azure-cloud-shell"></a>啟動 Azure Cloud Shell
 
