@@ -7,11 +7,11 @@ ms.topic: include
 ms.prod: azure
 ms.technology: azure-cli
 ms.openlocfilehash: 5df14f939efdd0550b49261c88c8dc6518ada459
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.sourcegitcommit: 3d26b464f196f8675c636ae792637d4c882fb92c
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059242"
+ms.lasthandoff: 12/14/2018
+ms.locfileid: "55145544"
 ---
 [Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) 與 Go 1.8 版和更新版本相容。 若為使用 [Azure Stack 設定檔](/azure/azure-stack/user/azure-stack-version-profiles-go)的環境，Go 1.9 版是最低需求。
 如果您需要安裝 Go，請遵循 [Go 安裝指示](https://golang.org/doc/install)。

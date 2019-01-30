@@ -9,13 +9,13 @@ ms.date: 09/05/2018
 ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.component: authentication
-ms.openlocfilehash: c2c3dccfa8da5cfe57fee0b90139002068982560
-ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
+ms.subservice: authentication
+ms.openlocfilehash: c66d6e65f36586bbe5b030cc3b783057b39668db
+ms.sourcegitcommit: be967d413a8bf906470e65a97e61688faa9dd98a
 ms.translationtype: HT
 ms.contentlocale: zh-TW
-ms.lasthandoff: 10/21/2018
-ms.locfileid: "49481977"
+ms.lasthandoff: 01/26/2019
+ms.locfileid: "55071145"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go 中可用的驗證方法
 
