@@ -19,7 +19,7 @@ items:
         href: /azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       - name: 適用於 MySQL 的 Azure 資料庫
         href: /azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
-      - name: 連接字串
+      - name: Azure SQL Database
         href: /azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json
   - name: Go Code 範例
     items:
@@ -29,7 +29,7 @@ items:
         href: azure-sdk-go-containers-samples.md
       - name: 計算和網路
         href: azure-sdk-go-compute-networking-samples.md
-      - name: 連接字串
+      - name: Azure SQL Database
         href: azure-sdk-go-sql-database-samples.md
       - name: 所有 Go 範例
         href: 'http://github.com/azure-samples/azure-sdk-for-go-samples'
